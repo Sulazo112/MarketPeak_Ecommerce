@@ -168,4 +168,83 @@ To serve the website from the EC2 instance, lets configure httpd to point to the
 
 Prepare the Web Directory: Clear the default httpd web directory and copy MarketPeak Ecommerce website files to it.
 
+sudo rm -rf /var/www/html/* sudo cp -r ~/MarketPeak_Ecommerce/* /var/www/html/
+
+![Sudo rm sudo cp](./img/sudo%20rm%20sudo%20cp.png)
+
+The directory /var/www/html/ is a standard directory structure on Linux systems that host web content, particularly for the Apache HTTP Server.
+
+When you install Apache on a Linux system, the installation process automatically creates this directory. It's designated as the default document root in Apache's configuration, meaning that Apache is set up to serve web files (such as HTML, CSS, and JavaScript files) located in this directory to visitors of your website.
+
+Reload httpd: Apply the changes by reloading the httpd service.
+
+sudo systemctl reload httpd
+
+2.5. Access Website from Browser
+
+With httpd configured and website files in place, MarketPeak Ecommerce platform is now live on the internet:
+
+Let's open a web browser and access the public IP of our EC2 instance to view the deployed website.
+
+My web page using ec2 IP: 16.171.181.110
+
+![My web page using ec2 Ip](./img/My%20web%20page%20using%20ec2%20IP.png)
+
+![Web page using public DNS](./img/Web%20page%20using%20public%20DNS.png)
+
+# 3. Continuous Integration and Deployment Workflow
+
+To ensure a smooth workflow for developing, testing, and deploying our e-commerce platform, follow this structured approach. It covers making changes in a development environment, utilizing version control with Git, and deploying updates to your production server on AWS.
+
+Step 1: Developing New Features and Fixes
+
+Create a Development Branch: Begin your development work by creating a separate branch. This isolates new features and bug fixes from the stable version of our website.
+
+![Git branches](./img/Git%20branches.png)
+
+Implement Changes: On the development branch, add your new features or bug fixes. This might include updating web pages, adding new products, or fixing known issues.
+
+Step 2: Version Control with Git
+
+Stage Your Changes: After making your changes, add them to the staging area in Git. This prepares the changes for a commit.
+
+![Gitadd](./img/gitadd.png)
+
+Commit Your Changes: Securely save your changes in the Git repository with a commit. Include a descriptive message about the updates.
+
+![Gitcommit](./img/gitcommit.png)
+
+Push Changes to GitHub: Upload your development branch with the new changes to GitHub. This enables collaboration and version tracking.
+
+![Gitpush](./img/gitpush.png)
+
+Step 3: Pull Requests and Merging to the Main branch
+
+Create a Pull Request (PR): On GitHub, create a pull request to merge the development branch into the main branch. This process is crucial for code review and maintaining code quality.
+
+Review and Merge the PR: Review the changes for any potential issues. Once satisfied, merge the pull request into the main branch, incorporating the new features or fixes into the production codebase.
+
+![Pull](./img/pull.png)
+
+Push the Merged Changes to GitHub: Ensure that your local main branch, now containing the updates, is pushed to the remote repository on GitHub.
+
+![Pushcheckout](./img/pushcheckout.png)
+
+Step 4: Deploying Updates to the Production Server
+
+Pull the Latest Changes on the Server: SSH into your AWS EC2 instance where the production website is hosted. Navigate to the website's directory and pull the latest changes from the main branch.
+
+![Pullfromec2](./img/pullfromec2.png)
+
+Restart the Web Server (if necessary): Depending on the nature of the updates, you may need to restart the web server to apply the changes.
+
+![Restartwebserver](./img/restartwebserver.png)
+
+Step 5: Testing the New Changes
+
+Access the Website: Open a web browser and navigate to the public IP address of your EC2 instance. Test the new features or fixes to ensure they work as expected in the live environment.
+This workflow emphasizes best practices in software development and deployment, including branch management, code review through pull requests, and continuous integration/deployment strategies. By following these steps, you maintain a stable and up-to-date production environment for your e-commerce platform.
+
+End.
+
 
